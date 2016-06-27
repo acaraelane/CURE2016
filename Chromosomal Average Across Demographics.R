@@ -11,16 +11,19 @@ ccgen <- read.csv("~/Documents/CURE2016/Project/Project Data/Cfiltered_mutations
 #Calculate total populations
 
 #African Population
-Arun <- rle(acgen[["Chr"]] == 1)
-ATP <- length(which(Arun$values == 1))
+Arun <- as.numeric(levels(acgen[["Chr"]]))[acgen[["Chr"]]]
+Arun <-Arun[-rev(which(Arun %in% NA))]
+ATP <- length(which(diff(rle(Arun)$values) < 0)) + 1
 
 #African American Population
-AArun <- rle(aacgen[["Chr"]] == 1)
-AATP <- length(which(AArun$values == 1))
+AArun <- as.numeric(levels(aacgen[["Chr"]]))[aacgen[["Chr"]]]
+AArun <-AArun[-rev(which(AArun %in% NA))]
+AATP <- length(which(diff(rle(AArun)$values) < 0)) + 1
 
 #Caucasian Population
-Crun <- rle(ccgen[["Chr"]] == 1)
-CTP <- length(which(Crun$values == 1))
+Crun <- as.numeric(levels(ccgen[["Chr"]]))[ccgen[["Chr"]]]
+Crun <-Crun[-rev(which(Crun %in% NA))]
+CTP <- length(which(diff(rle(Crun)$values) < 0)) + 1
 
 #Calculations for African Demographic
 
@@ -544,6 +547,13 @@ CChrLen <- c(CChrLen, length(calc))
 
 CChrAvg <- CChrLen / CTP
 
+
+d <- data.frame(row.names = c("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","X","Y"), AChrAvg, AAChrAvg,CChrAvg)
+clab <- c("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","X","Y")
+#make a matrix to create bar chart
+d <- do.call(rbind, d)
+barplot(d, beside = TRUE, main="Average Chromosomal Mutations Across Three Populations", ylab = "Average Number of Mutations",
+        xlab="Chromosome",col=c("darkblue","green","red"),legend = c("African","African American","Caucasian"), names.arg = clab)
 
 
 #PopGroups <- table(AChrAvg, AAChrAvg, CChrAvg)
