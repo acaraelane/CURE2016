@@ -548,16 +548,39 @@ CChrLen <- c(CChrLen, length(calc))
 CChrAvg <- CChrLen / CTP
 
 
-d <- data.frame(row.names = c("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","X","Y"), AChrAvg, AAChrAvg,CChrAvg)
+dAvg <- data.frame(row.names = c("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","X","Y"),AChrAvg, AAChrAvg,CChrAvg)
 clab <- c("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","X","Y")
 #make a matrix to create bar chart
-d <- do.call(rbind, d)
-barplot(d, beside = TRUE, main="Average Chromosomal Mutations Across Three Populations", ylab = "Average Number of Mutations",
+dAvg <- do.call(rbind, dAvg)
+barplot(dAvg, beside = TRUE, main="Average Chromosomal Mutations Across Three Populations", ylab = "Average Number of Mutations",
         xlab="Chromosome",col=c("darkblue","green","red"),legend = c("African","African American","Caucasian"), names.arg = clab)
 
+#Compared to African Population
+AANorm <- (AAChrAvg/AChrAvg) * 100
+CNorm <- (CChrAvg/AChrAvg) * 100
 
-#PopGroups <- table(AChrAvg, AAChrAvg, CChrAvg)
-#barplot(PopGroups, main="Average Chromosomal Mutations Across Three Populations", 
-        #xlab="Chromosome",col=c("darkblue","green","red"),legend = c("African","African American","Caucasian"),Ac
-        #beside = TRUE)
+dnaa <- data.frame(row.names = c("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","X","Y"),AANorm,CNorm)
+clab <- c("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","X","Y")
+
+#make a matrix to create bar chart
+dnaa <- do.call(rbind, dnaa)
+barplot(dnaa, beside = TRUE, main="Average Chromosomal Mutations Compared \nto the African Demographic", ylim = c(0,200), ylab = "Percentage",
+        xlab="Chromosome",col=c("darkblue","green"),legend = c("African American","Caucasian"), names.arg = clab)
+abline(h=100)
+
+#Compared to African American Population
+ANorm <- (AChrAvg/AAChrAvg) * 100
+CNorm <- (CChrAvg/AAChrAvg) * 100
+
+dna <- data.frame(row.names = c("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","X","Y"),ANorm,CNorm)
+clab <- c("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","X","Y")
+
+#make a matrix to create bar chart
+dna <- do.call(rbind, dna)
+barplot(dna, beside = TRUE, main="Average Chromosomal Mutations Compared \nto the African American Demographic", ylim = c(0,500), ylab = "Percentage",
+        xlab="Chromosome",col=c("darkblue","green"), names.arg = clab,
+        legend = c("African","Caucasian"),
+        args.legend = list(x = "top"))
+abline(h=100)
+
 
