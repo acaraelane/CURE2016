@@ -138,7 +138,7 @@ AAChrMut <- c(AAChrMut, length(calc))
 calc <- which(aacgenref == "G" & aacgenalt == "A", arr.ind = FALSE, useNames = TRUE)
 AAChrMut <- c(AAChrMut, length(calc))
 
-AAAvg <- AAChrMut / ATP
+AAAvg <- AAChrMut / AATP
 
 #Calculations for Caucasion Demographic
 
@@ -196,7 +196,7 @@ CChrMut <- c(CChrMut, length(calc))
 calc <- which(ccgenref == "G" & ccgenalt == "A", arr.ind = FALSE, useNames = TRUE)
 CChrMut <- c(CChrMut, length(calc))
 
-CAvg <- CChrMut / ATP
+CAvg <- CChrMut / CTP
 
 
 ds <- data.frame(row.names = c("G for A","T for A","C for A","T for G","C for G","C for T","T for C","G for C","A for C","G for T","A for T","A for G"),AAvg,AAAvg,CAvg)
